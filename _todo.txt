@@ -1,0 +1,1 @@
+* PRovare a installare nginx su docker sulla VM di test_1

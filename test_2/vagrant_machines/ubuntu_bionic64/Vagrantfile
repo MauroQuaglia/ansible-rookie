@@ -1,5 +1,9 @@
-Vagrant.configure("2") do |config|
-  config.vm.define "bionic-64" do |custom_config|
-    custom_config.vm.box = "ubuntu/bionic64"
+MACHINE = 'bionic-64'
+
+Vagrant.configure('2') do |config|
+  config.vm.define(MACHINE) do |custom_config|
+    custom_config.vm.box = 'ubuntu/bionic64'
+    custom_config.vm.hostname = MACHINE
+    custom_config.vm.network('forwarded_port', host: 8080, guest: 80)
   end
 end
