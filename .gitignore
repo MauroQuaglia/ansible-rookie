@@ -1,3 +1,5 @@
 /.idea
 .vagrant/
 *.log
+*.key
+*.crt
