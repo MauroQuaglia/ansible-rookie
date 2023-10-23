@@ -1,0 +1,13 @@
+MACHINE = 'xenial-64'
+
+Vagrant.configure('2') do |config|
+  config.vm.define(MACHINE) do |custom_config|
+    config.vm.box = 'ubuntu/xenial64'
+    custom_config.vm.hostname = MACHINE
+
+    # Questo permette poi di vedere la macchina con il suo nome da interfaccia di VirtualBox: virtualbox
+    custom_config.vm.provider('virtualbox') do |virtualbox|
+      virtualbox.name = MACHINE
+    end
+  end
+end
