@@ -26,3 +26,8 @@ La stessa cosa si può fare con Docker.
 * Con `vagrant reload --provision` faccio rebbot e provision.
 * Con `vagrant up --provision`: start di una VM in stato healt con provision.
 * Con `vagrant up --no-provision`: start di una VM in stato healt senza provision.
+
+# Plugin
+Vagrant è estendibile in funzionalità mediante dei plug-in.
+Per esempio se vogliamo gestire gli hostname dulla VM possiamo aggiungere il plug-in "vagrant-hostmanager": `config.vagrant.plugins = ['vagrant-hostmanager']`.
+Questo plug-in è già attivo di default, però ci da l'idea di come fare.
