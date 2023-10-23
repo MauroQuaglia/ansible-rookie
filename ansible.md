@@ -10,7 +10,6 @@
 * Aspetta che l'esecuzione di un task sia finita su tutti i server prima di eseguire il task successivo del playbook.
 * Ansible scrive sul syslog del server. 
 
-
 # Inventory
 * A ogni server viene dato un nome che Ansible usa per identificarlo, di norma l'hostname del server. Per esempio il 
   nostro server di Vagrant lo possiamo chiamare testserver.
@@ -24,9 +23,14 @@
   * Nella home directory
   * In `/etc/ansible/ansible.cfg`
 
-  
 # playbook
 * Per capire se ho installato (sulla control-machine) un modulo e come usarlo: 
  * `ansible-doc -l`. Per esempio se vogliamo avere lumi sul modulo "service":  `ansible-doc service`
 * Per vedere tutti i server configurati e raggruppati: `ansible-inventory --graph`
 * Per verificare la sintassi corretta del playbook: `yamllint webservers.yml` 
+
+# Anatomia di un playbook
+* Lo dice il nome play book: il libro dei play
+* 1 Playbook ---> + Play
+* 1 Play ---> + Task
+* 1 Task ---> + Module

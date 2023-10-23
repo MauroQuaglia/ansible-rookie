@@ -1,33 +1,33 @@
 ---
 
-- name: Configure webserver with NGINX
+- name: Configure webserver with NGINX (Play-1)
   hosts: webservers
   become: true
   become_user: root
 
   tasks:
-    - name: Ensure NGINX is installed
+    - name: Ensure NGINX is installed (Task-1)
       package:
         name: nginx
         update_cache: true
 
-    - name: Copy NGINX config file
+    - name: Copy NGINX config file (Task-2)
       copy:
         src: nginx.conf
         dest: /etc/nginx/sites-available/default
 
-    - name: Enable configuration
+    - name: Enable configuration (Task-3)
       file:
         src: /etc/nginx/sites-available/default
         dest: /etc/nginx/sites-enabled/default
         state: link
 
-    - name: Copy homepage template
+    - name: Copy homepage template (Task-4)
       template:
         src: index.html.j2
         dest: /usr/share/nginx/html/index.html
 
-    - name: Restart NGINX
+    - name: Restart NGINX (Task-5)
       service:
         name: nginx
         state: restarted
