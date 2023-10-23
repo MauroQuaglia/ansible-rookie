@@ -24,7 +24,9 @@
   * Nella home directory
   * In `/etc/ansible/ansible.cfg`
 
+  
 # playbook
 * Per capire se ho installato (sulla control-machine) un modulo e come usarlo: 
  * `ansible-doc -l`
  * Es: `ansible-doc service`
+

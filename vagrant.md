@@ -15,3 +15,14 @@
 * Per eliminare la VM:
     * `vagrant destroy`
     * `vagrant global-status`
+
+# Provisioner
+Vagrnat ha dei tool esterni, i "provisioner" che configurano la VM dopo che è partita. 
+Per esempio il provisioner "ansible" installa Ansible sulla VM e usa un playbook per configurarla. 
+In questo modo posso anche non installare ansible sulla mia macchina.
+La stessa cosa si può fare con Docker.
+* Quando faccio `vagrant up` viene eseguito il provisioner.
+* Con `vagrant provision` lo forzo a girare un'altra volta.
+* Con `vagrant reload --provision` faccio rebbot e provision.
+* Con `vagrant up --provision`: start di una VM in stato healt con provision.
+* Con `vagrant up --no-provision`: start di una VM in stato healt senza provision.
