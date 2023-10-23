@@ -1,1 +1,2 @@
-* PRovare a installare nginx su docker sulla VM di test_1
+nel playbook-1 provare a fare il provisioning poi di ansible per vedere che l amacchina venga configurata in
+automatico quando parte, un po' come fatto con Docker.

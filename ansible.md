@@ -27,6 +27,6 @@
   
 # playbook
 * Per capire se ho installato (sulla control-machine) un modulo e come usarlo: 
- * `ansible-doc -l`
- * Es: `ansible-doc service`
-
+ * `ansible-doc -l`. Per esempio se vogliamo avere lumi sul modulo "service":  `ansible-doc service`
+* Per vedere tutti i server configurati e raggruppati: `ansible-inventory --graph`
+* Per verificare la sintassi corretta del playbook: `yamllint webservers.yml` 
