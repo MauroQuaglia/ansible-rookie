@@ -34,3 +34,11 @@
 * 1 Playbook ---> + Play
 * 1 Play ---> + Task
 * 1 Task ---> + Module
+
+# Validazione di un playbook prima di lanciarlo 
+* `ansible-playbook --syntax-check webservers.yml`
+* `ansible-lint webservers.yml`
+* `yamllint webservers.yml`
+* `ansible-inventory --host testserver -i inventory/vagrant.ini`
+* `ansible-inventory --graph`
+* `vagrant validate`

@@ -1,0 +1,85 @@
+---
+
+- name: Configure webserver with NGINX and TLS
+  hosts: webservers
+  become: true
+  become_user: root
+  gather_facts: true
+
+  vars:
+    tls_dir: /etc/nginx/ssl/
+    key_file: nginx.key
+    cert_file: nginx.crt
+    conf_file: /etc/nginx/sites-available/default
+    server_name: localhost
+
+  # Possono essere più di uno.
+  # Alla fine del Play girano in automatico.
+  # Ma posso anche richiamarne qualcuno durante l'esecuzione del Play.
+  # L'hook per triggerarlo è il "changed" del task.
+  # Se qualcosa va male, e rilancio il Play, ora potrei avere un "ok"
+  # per cui l'hook potrebbe non scattare.
+  # Per questo è sempre meglio mettere un test come Test it!
+  handlers:
+    - name: Restart NGINX
+      service:
+        name: nginx
+        state: restarted
+
+  tasks:
+    - name: Ensure NGINX is installed
+      package:
+        name: nginx
+        update_cache: true
+
+    - name: Create directories for TLS certificates
+      file:
+        path: "{{ tls_dir }}"
+        state: directory
+        mode: "0750"
+      notify: Restart NGINX
+
+    - name: Copy TLS files
+      copy:
+        src: "{{ item }}"
+        dest: "{{ tls_dir }}"
+        mode: "0600"
+      loop:
+        - "{{ key_file }}"
+        - "{{ cert_file }}"
+      notify: Restart NGINX
+
+    - name: Manage NGINX config template
+      template:
+        src: nginx.conf.j2
+        dest: "{{ conf_file }}"
+        mode: "0644"
+      notify: Restart NGINX
+
+    - name: Enable configuration
+      file:
+        src: "{{ conf_file }}"
+        dest: /etc/nginx/sites-enabled/default
+        state: link
+
+    - name: Copy homepage template
+      template:
+        src: index.html.j2
+        dest: /usr/share/nginx/html/index.html
+        mode: "0644"
+
+    - name: Restart NGINX
+      meta: flush_handlers
+
+    - name: "Test it! https://localhost:8433/index.html"
+      delegate_to: localhost
+      become: false
+      uri:
+        url: "https://localhost:8443/index.html"
+        validate_certs: false
+        return_content: true
+      register: this
+      failed_when: "Running on ' not in this.content"
+      tags:
+        - test
+...
