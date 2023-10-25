@@ -60,4 +60,18 @@
         src: index.html.j2
         dest: /usr/share/nginx/html/index.html
         mode: "0644"
+
+    - name: Restart NGINX
+      meta: flush_handlers
+
+    - name: "Test the https://localhost:8433/index.html response"
+      delegate_to: localhost
+      become: false
+      uri:
+        url: https://localhost:8443/index.html
+        validate_certs: false
+        return_content: true
+      register: response
+      failed_when: "'Questo NGINX è stato configurato grazie ad Ansible' not in response.content"
+
 ...

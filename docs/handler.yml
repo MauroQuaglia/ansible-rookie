@@ -1,0 +1,33 @@
+# Cerchiamo di capire come funzionano gli handler.
+
+---
+
+- name: Configure webserver with NGINX and TLS
+  hosts: webservers
+
+  handlers:
+    - name: Restart NGINX
+      service:
+        name: nginx
+        state: restarted
+
+  tasks:
+    # Se non c'è il "notify" (vedi sotto) non viene richiamato nessun handler!
+    # Gli handler vengono chiamati quanto entrambe sono soddisfatte:
+     # Il task ha il "notify" con il nome dell'handler
+     # Il task ha avuto come esito "changed" (se "ok" non viene chiamato il notify, perché non è stata fatta nessun'azione.
+    - name: Ensure NGINX is installed
+      package:
+        name: nginx
+        update_cache: true
+        notify: Restart NGINX
+
+    # Questo serve eventualmente per forzare la chiamata dell'handler quando siamo a questo punto del Play.
+    - name: Restart NGINX
+      meta: flush_handlers
+
+    # Eventualmente qui ci possono essere altri task.
+
+    # Alla fine del Play, vengono richiamati in automatico tutti gli handler che hanno ricevuto un notify.
+    # Questa cosa però non la vedo succedere e mi serve il  flush_handlers finale!
+...

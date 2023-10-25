@@ -1,0 +1,10 @@
+nel playbook-1 provare a fare il provisioning poi di ansible per vedere che l amacchina venga configurata in
+automatico quando parte, un po' come fatto con Docker.
+
+
+
+
+
+
+
+
