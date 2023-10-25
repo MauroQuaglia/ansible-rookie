@@ -1,0 +1,25 @@
+---
+
+- name: Configure webserver with NGINX and TLS
+  hosts: webservers
+
+  handlers:
+    - name: Restart NGINX
+      service:
+        name: nginx
+        state: restarted
+
+  tasks:
+    - name: Ensure NGINX is installed
+      package:
+        name: nginx
+        update_cache: true
+      # notify: Restart NGINX
+
+      # Se non c'è il "notify" (vedi sopra) non viene richiamato nessun restart!
+      # Gli handler vengono chiamati quanto entrambe sono soddisfatte:
+        # Il task ha il "notify" dell'handler
+        # Il task ha avuto come esito "changed"
+    - name: Restart NGINX
+      meta: flush_handlers
+...

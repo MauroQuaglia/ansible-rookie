@@ -4,7 +4,7 @@
   hosts: webservers
   become: true
   become_user: root
-  gather_facts: true
+  gather_facts: false
 
   vars:
     tls_dir: /etc/nginx/ssl/
@@ -13,13 +13,6 @@
     conf_file: /etc/nginx/sites-available/default
     server_name: localhost
 
-  # Possono essere più di uno.
-  # Alla fine del Play girano in automatico.
-  # Ma posso anche richiamarne qualcuno durante l'esecuzione del Play.
-  # L'hook per triggerarlo è il "changed" del task.
-  # Se qualcosa va male, e rilancio il Play, ora potrei avere un "ok"
-  # per cui l'hook potrebbe non scattare.
-  # Per questo è sempre meglio mettere un test come Test it!
   handlers:
     - name: Restart NGINX
       service:
@@ -67,7 +60,4 @@
         src: index.html.j2
         dest: /usr/share/nginx/html/index.html
         mode: "0644"
-
-    - name: Restart NGINX
-      meta: flush_handlers
 ...

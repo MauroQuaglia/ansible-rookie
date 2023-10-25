@@ -26,14 +26,19 @@
 # playbook
 * Per capire se ho installato (sulla control-machine) un modulo e come usarlo: 
  * `ansible-doc -l`. Per esempio se vogliamo avere lumi sul modulo "service":  `ansible-doc service`
-* Per vedere tutti i server configurati e raggruppati: `ansible-inventory --graph`
-* Per verificare la sintassi corretta del playbook: `yamllint webservers.yml` 
+* handler
+  * Possono essere più di uno.
+  * Non c'è un modo semplice per capire se è stato chiamato.
+  * Alla fine del Play girano in automatico, ma posso forzarli a girare tutti con flush_handlers.
+  * L'hook per triggerarlo è il "changed" del task
+     * Se qualcosa va male, e rilancio il Play, potrei avere un "ok" al posto di un "changed", teniamone conto.
+  * Vedere il handler.yml per una spiegazione
 
 # Anatomia di un playbook
 * Lo dice il nome play book: il libro dei play
 * 1 Playbook ---> + Play
 * 1 Play ---> + Task
-* 1 Task ---> + Module
+* 1 Task ---> 1 Module (buona pratica, anche se si può avere + Module)
 
 # Validazione di un playbook prima di lanciarlo 
 * `ansible-playbook --syntax-check webservers.yml`

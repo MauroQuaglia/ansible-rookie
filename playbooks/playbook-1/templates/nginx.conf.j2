@@ -1,8 +1,6 @@
 server {
     listen 80 default_server;
     listen 443 ssl;
-    ssl_protocol TLSv1.2;
-    ssl_prefer_server_ciphers on;
 
     root /usr/share/nginx/html;
     index index.html;
@@ -12,8 +10,8 @@ server {
     add_header X-Content-Type-Options nosniff;
 
     server_name {{ server_name }};
-    ssl_certificate {{ tls_dir }}{{ cert_file }}
-    ssl_certificate_key {{ tls_dir }}{{ key_file }}
+    ssl_certificate {{ tls_dir }}{{ cert_file }};
+    ssl_certificate_key {{ tls_dir }}{{ key_file }};
 
     location / {
         try_files $uri $uri/ =404;
