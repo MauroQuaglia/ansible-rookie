@@ -64,6 +64,15 @@
     - name: Restart NGINX
       meta: flush_handlers
 
+    - name: "Test the http://localhost:8080/index.html response"
+      delegate_to: localhost
+      become: false
+      uri:
+        url: http://localhost:8080/index.html
+        return_content: true
+      register: response
+      failed_when: "'Questo NGINX è stato configurato grazie ad Ansible' not in response.content"
+
     - name: "Test the https://localhost:8433/index.html response"
       delegate_to: localhost
       become: false
