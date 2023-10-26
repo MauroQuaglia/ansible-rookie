@@ -15,6 +15,7 @@
   nostro server di Vagrant lo possiamo chiamare testserver.
 * Possiamo usare il modulo __ping__ di ansible per vedere se riusciamo a comunicare con il server: `ansible testserver -i inventory/vagrant.ini -m ping`
 * Se qualcosa non funziona possiamo usare la modalita verbosa con l'opzione `-vvvv`.
+* Il gota dell'iventory è a questo sito un po' datato [inventory-doc](https://serge.vanginderachter.be/)
 
 # ansible.cfg
 * Nell'ordine viene cercato:

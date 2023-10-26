@@ -1,0 +1,7 @@
+# Questa è una semplice lista, ma nel file di configurazione è abilitato il plugin host_list, quindi no problem!
+# Il localhost viene aggiunto di default da ansible.
+
+# host_list
+vagrant-1 ansible_port=2201
+vagrant-2 ansible_port=2202
+vagrant-3 ansible_port=2203
