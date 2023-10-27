@@ -53,5 +53,5 @@
 * `ansible-lint webservers.yml`
 * `yamllint webservers.yml`
 * `ansible-inventory --host testserver -i inventory/vagrant.ini`
-* `ansible-inventory --graph`
+* `ansible-inventory --graph --vars`
 * `vagrant validate`
