@@ -1,4 +1,7 @@
 # Cerchiamo di capire come funzionano gli handler.
+# NB: Di solito vengono usati per fare i restart dei servizi MA, se non ci sono problemi particolari, invece di fare tutta
+# questa gestione con gli handler, basta mettere come ultimo task del play un task che fa il restart del servizio!
+# E' lo stesso Ansible a consigliarlo.
 
 ---
 

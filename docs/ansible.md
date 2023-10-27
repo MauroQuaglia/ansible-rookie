@@ -16,6 +16,13 @@
 * Possiamo usare il modulo __ping__ di ansible per vedere se riusciamo a comunicare con il server: `ansible testserver -i inventory/vagrant.ini -m ping`
 * Se qualcosa non funziona possiamo usare la modalita verbosa con l'opzione `-vvvv`.
 * Il gota dell'iventory è a questo sito un po' datato [inventory-doc](https://serge.vanginderachter.be/)
+* Ci sono tre possibili punti in cui posso specificare come connettermi ai vari server:
+  * Nell'inventory file
+  * Nell'ansible.cfg (c'è un mapping in questo caso dei parametri, per esempio 'remote_port' (ansible.cfg) --> 'ansible_port' (inventory) e così via. 
+  * Nel file .ssh/config
+* Ansible di default crea il gruppo __all__.
+  * Per esempio se vogliamo vedere se il tempo è sincronizzato su tutte le macchine: `ansible all -m command -a "date"`
+* Pr supportare tanti server con nomi molto simili, per esempio cambia un numero si può usare quest utile convenzione: `serverweb[1:10]` che li crea in automatico tutti.
 
 # ansible.cfg
 * Nell'ordine viene cercato:

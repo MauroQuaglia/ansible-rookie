@@ -1,7 +1,13 @@
 # Questa è una semplice lista, ma nel file di configurazione è abilitato il plugin host_list, quindi no problem!
 # Il localhost viene aggiunto di default da ansible.
+# In questo file descriviamo i nostri server e come connetterci.
 
 # host_list
-vagrant-1 ansible_port=2201
-vagrant-2 ansible_port=2202
-vagrant-3 ansible_port=2203
+
+# Il gruppo "vagrant" degli host.
+# NB vagrant-1,vagrant-2,vagrant-3 sono degli alias, sono dei nomi che ci permettono tramite questo file di farerifermineto a quegli host. Questo di solito può causare confusione!
+# Ansible risolve gli hostname usando: l'inventory, il config-ssh di SSH, l'etc/hosts e il DNS.
+[vagrant]
+vagrant-1 ansible_host=vagrant-1 ansible_port=2201 ansible_user=vagrant
+vagrant-2 ansible_host=vagrant-2 ansible_port=2202 ansible_user=vagrant
+vagrant-3 ansible_host=vagrant-3 ansible_port=2203 ansible_user=vagrant

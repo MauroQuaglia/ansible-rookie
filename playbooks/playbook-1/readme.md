@@ -17,3 +17,7 @@ Generazione di un certificato per prove locali.
  * `ansible-playbook webservers-tls.yml`:
  *  http://127.0.0.1:8080/
  *  https://127.0.0.1:8443/
+
+* La versione semplice del Play del Playbook `webservers-tls.yml` è quella di eliminare tutta la gestione tramite handler e fare un restart
+  del servizio Nginx come ultimo task del Play. E' lo stesso Ansible a consigliare cose di questo tipo, soprattutto se sto solo 
+  'preparando' una macchina.
