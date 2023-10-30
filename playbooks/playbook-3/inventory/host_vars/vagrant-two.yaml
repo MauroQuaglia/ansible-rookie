@@ -1,0 +1,5 @@
+---
+ansible_host: vagrant-2
+ansible_port: 2202
+ansible_user: vagrant
+...
