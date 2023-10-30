@@ -1,0 +1,5 @@
+Ho modificato il mio file ssh.
+Non ho messo la chiave numerica dell'Identityfile, se qualcosa non va potrebbe esser quello
+
+Non dovrebbe cambiare tutte le volte ma non si sa mai:
+XXX -> IdentityFile /home/xpuser/.vagrant.d/insecure_private_keys/vagrant.key.ed25519

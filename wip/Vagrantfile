@@ -1,5 +1,7 @@
+MACHINE = 'contrib-buster-64'
 VAGRANT_1 = 'vagrant-1'
 VAGRANT_2 = 'vagrant-2'
+VAGRANT_3 = 'vagrant-3'
 
 Vagrant.configure('2') do |config|
   config.ssh.insert_key = false # Usa la stessa chiave per tutte le macchine
@@ -13,10 +15,18 @@ Vagrant.configure('2') do |config|
   end
 
   config.vm.define(VAGRANT_2) do |vagrant_2|
-    vagrant_2.vm.box = 'ubuntu/focal64'
+    vagrant_2.vm.box = 'debian/contrib-buster64'
     vagrant_2.vm.hostname = VAGRANT_2
     vagrant_2.vm.network('forwarded_port', id: 'ssh', guest: 22, host: 2202, auto_correct: false)
     vagrant_2.vm.network('forwarded_port', id: 'http', guest: 80, host: 8082)
     vagrant_2.vm.network('forwarded_port', id: 'https', guest: 443, host: 8442)
+  end
+
+  config.vm.define(VAGRANT_3) do |vagrant_3|
+    vagrant_3.vm.box = 'debian/contrib-buster64'
+    vagrant_3.vm.hostname = VAGRANT_3
+    vagrant_3.vm.network('forwarded_port', id: 'ssh', guest: 22, host: 2203, auto_correct: false)
+    vagrant_3.vm.network('forwarded_port', id: 'http', guest: 80, host: 8083)
+    vagrant_3.vm.network('forwarded_port', id: 'https', guest: 443, host: 8443)
   end
 end

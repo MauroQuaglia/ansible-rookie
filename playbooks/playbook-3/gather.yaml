@@ -1,0 +1,13 @@
+---
+
+- name: Example of Gather Facts
+  hosts: vagrant
+  gather_facts: true
+
+  tasks:
+    - name: Print all information
+      debug:
+        var: ansible_facts.lsb.description
+        #var: ansible_facts # Per tutte le proprietà, non solo architettura
+
+...

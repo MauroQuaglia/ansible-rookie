@@ -1,0 +1,19 @@
+# In questo modo, stiamo dando accesso al database a tutte le maccine di produzione, anche a quelle a cui non serve.
+# Per esempio helsiky fa parte del gruppo production e avrebbe accesso al database... non gli serve.
+# Però questo esempio è utile per vedere a cosa serve la directory group_vars
+---
+db:
+  user: widget_user
+  password: "my-secure-password"
+  name: widget_production
+  primary:
+    host: frankfurt
+    port: 5432
+  replica:
+    host: london
+    port: 5432
+
+rabbit_mq:
+  host: tokio
+  port: 5672
+...

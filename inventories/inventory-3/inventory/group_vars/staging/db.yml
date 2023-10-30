@@ -1,0 +1,9 @@
+---
+db:
+  user: widget_user
+  password: "my-secure-password"
+  name: widget_staging
+  primary:
+    host: chicago
+    port: 5432
+...

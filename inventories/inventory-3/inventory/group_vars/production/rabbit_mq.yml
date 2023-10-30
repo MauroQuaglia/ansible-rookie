@@ -1,0 +1,5 @@
+---
+rabbit_mq:
+  host: tokio
+  port: 5672
+...

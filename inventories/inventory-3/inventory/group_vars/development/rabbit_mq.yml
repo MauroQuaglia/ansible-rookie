@@ -1,0 +1,5 @@
+---
+rabbit_mq:
+  host: vagrant-3
+  port: 5672
+...

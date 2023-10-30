@@ -1,0 +1,12 @@
+---
+db:
+  user: widget_user
+  password: "my-secure-password"
+  name: widget_production
+  primary:
+    host: frankfurt
+    port: 5432
+  replica:
+    host: london
+    port: 5432
+...

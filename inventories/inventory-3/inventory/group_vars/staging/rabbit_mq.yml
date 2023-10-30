@@ -1,0 +1,5 @@
+---
+rabbit_mq:
+  host: chicago
+  port: 5672
+...

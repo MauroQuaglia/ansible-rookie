@@ -1,7 +1,0 @@
----
-db:
-  user: widget_user
-  password: "my-secure-password"
-  name: widget
-  port: 5432
-...

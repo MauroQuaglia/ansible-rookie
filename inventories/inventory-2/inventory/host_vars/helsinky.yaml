@@ -1,0 +1,5 @@
+# Questo specifica per la singola macchina helsinky dove trovare il Network Time Protocol
+---
+ntp:
+  server: ntp.helsinky.com
+...

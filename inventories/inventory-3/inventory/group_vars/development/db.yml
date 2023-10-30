@@ -1,0 +1,9 @@
+---
+db:
+  user: widget_user
+  password: "my-secure-password"
+  name: widget_development
+  primary:
+    host: vagrant-3
+    port: 5432
+...
