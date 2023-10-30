@@ -1,13 +1,62 @@
 ---
 
+# Occhio che la variabile ansible_facts viene creata in automatico da Ansible, quindi cerchiamo di non sovrascrivergliela per sbaglio noi!
 - name: Example of Gather Facts
   hosts: vagrant
   gather_facts: true
 
   tasks:
-    - name: Print all information
+    - name: Print information
       debug:
-        var: ansible_facts.lsb.description
-        #var: ansible_facts # Per tutte le proprietà, non solo architettura
+        var: ansible_facts.lsb.description # Per vedere solo questa!
+        #var: ansible_facts # Per vedere tutte le proprietà!
+
+    - name: "Concatenate information with ~ symbol"
+      debug:
+        msg: "The architecture and bios date are: {{ ansible_facts.architecture ~':'~ansible_facts.bios_date  }}"
+
+    # Anche questo è un modo di vedere le informazioni ma concatenandole con la sintassi ">-" per andare su più righe.
+    - name: Print more information
+      debug:
+        msg: >-
+          os_family: {{ ansible_facts.os_family}},
+          distro: {{ ansible_facts.distribution}} {{ ansible_facts.distribution_version}},
+          kernel: {{ ansible_facts.kernel }}
+
+    # Come stamapre a terminale il valore di una variabile tornatada un modulo eseguito su un hsot.
+    - name: "Each Ansible module returns results in JSON format. To use the result I must create a registered variable"
+      command: whoami
+      register: login
+    # E' l'unico modo che c'è con ansible per vedere per completo il dictionary che ritorna la response.
+    # Scrive il JSON completo di risposta a terminale
+    # Quando poi ho individuato la variabile posso anche eliminare questo pezzettino.
+    - debug:
+        var: login
+    # Una volta poi che  ho capito quale variabile mi interessa scrivo a video solo quello, in questo caso è login.stdout, cioè il comando
+    # whoami eseguito sull'host remoto.
+    # stdout è l'output del comando whoami.
+    - debug:
+        msg: "Response is: {{ login.stdout }}"
+
+    # Posso anche ignorare quando un modulo torna un errore, così che il Play non si interrompa.
+    # Ma per utilità posso anche catturare l'output dell'errore e mostrarlo a video, magari mi può essere utile.
+    # Ansible ci pensa già lui a dare errore, ma non si sa mai che possa tornare  utile la cosa.
+    - name: "Run and ignore failure but print the error"
+      command: "comando-inesistente"
+      ignore_errors: true
+      register: result
+    - debug:
+        var: result
+
+    # Posso tornare anche i fact di un singolo modulo con il service_facts!
+    # Il service_facts è un modulo che permette di tornare i facts dei servizi.
+    # Le informazioni raccolte vengono stampate in output utilizzando il modulo debug e accedendo alla variabile ansible_facts.services
+    # Le informazioni raccolte da service_facts vengono memorizzate in ansible_facts.services
+    # In questo caso andiamo a vedere le variabili del servizio "sshd.service"
+    - name: Fact returned by a module
+      service_facts:
+
+    - debug:
+        var: ansible_facts.services.['sshd.service']
 
 ...
