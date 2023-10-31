@@ -57,6 +57,6 @@
       service_facts:
 
     - debug:
-        var: ansible_facts.services.['sshd.service']
+        var: ansible_facts.services['sshd.service']
 
 ...
