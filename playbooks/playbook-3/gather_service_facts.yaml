@@ -11,7 +11,7 @@
         var: ansible_facts.services # VARIABLE IS NOT DEFINED!
 
     - name: Call Service Facts
-      service_facts: # Raccolta delle informazioni relative a tutti servizi
+      service_facts: # Raccolta delle informazioni relative a tutti servizi;
 
     # Li visualizzo tutti
     - debug:

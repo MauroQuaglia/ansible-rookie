@@ -1,0 +1,4 @@
+Kernels:
+{% for host in groups.vagrant %}
+    server {{ hostvars[host].inventory_hostname }}: {{ hostvars[host].ansible_facts.kernel }}
+{% endfor %}

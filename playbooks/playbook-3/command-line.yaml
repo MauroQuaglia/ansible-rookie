@@ -1,0 +1,15 @@
+---
+# ansible-playbook command-line.yaml
+# ansible-playbook command-line.yaml -e 'my_var="CIAO CIAO"'
+# ansible-playbook command-line.yaml -e @./data/many_vars.yaml
+- name: Passaggio di variabile da linea di comando (posso addirittura passare un intero file contenente più variabili)
+  hosts: localhost
+  gather_facts: false
+
+  vars:
+    my_var: "Ciao!"
+
+  tasks:
+  - name: Visualizzo la variabile
+    debug: var=my_var
+...

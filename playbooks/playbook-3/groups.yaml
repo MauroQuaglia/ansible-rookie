@@ -1,0 +1,11 @@
+---
+- name: Esempio di utilizzo della variabile groups
+  hosts: vagrant # Il template viene generato e copiato sulle VM
+  gather_facts: true # Necessario per riempire la variabile hostvars
+
+  tasks:
+  - name: Genera il contenuto del template e lo salva nell'host remoto
+    template:
+      src: groups.j2
+      dest: /tmp # Sulle VM
+...

@@ -10,8 +10,8 @@ Vagrant.configure('2') do |config|
     vagrant_1.vm.network('forwarded_port', id: 'ssh', guest: 22, host: 2201, auto_correct: false)
     vagrant_1.vm.network('forwarded_port', id: 'http', guest: 80, host: 8081)
     vagrant_1.vm.network('forwarded_port', id: 'https', guest: 443, host: 8441)
-    vagrant_1.vm.provision('shell', inline: 'mkdir -p /etc/ansible/facts.d')
-    vagrant_1.vm.synced_folder('./data/', '/etc/ansible/facts.d')
+    #vagrant_1.vm.provision('shell', inline: 'mkdir -p /etc/ansible/facts.d')
+    #vagrant_1.vm.synced_folder('./data/', '/etc/ansible/facts.d')
   end
 
   config.vm.define(VAGRANT_2) do |vagrant_2|

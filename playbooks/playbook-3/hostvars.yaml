@@ -1,0 +1,10 @@
+---
+- name: Esempio di utilizzo della variabile hostvars (un dictionary che contiene tante variabili associate ai vari host)
+  hosts: vagrant
+  gather_facts: true # Necessario per riempire la variabile hostvars
+
+  tasks:
+    - name: Posso accedere alle variabili dei vari host remoti
+      debug:
+        msg: "VagrantOne: {{ hostvars['vagrant-one'].ansible_facts.kernel }} and VagrantTwo: {{ hostvars['vagrant-two'].ansible_facts.kernel }}"
+...

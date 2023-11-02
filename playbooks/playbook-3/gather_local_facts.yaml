@@ -1,10 +1,10 @@
 ---
 
 # Le LOCAL FACT rappresentano la raccolta di informazioni che si trovano in questo path dell'host remoto: /etc/ansible/facts.d
-# Se metto un file .ini e .json, questo viene interpretato, e passato ad ansible.
-# Tuttavia questa cosa sembra non funzionare
+# Devo mettere un file (non eseguibile) con estensione .facts e in formato INI o JSON.
 - name: Example Local Facts
-  hosts: localhost
+  hosts: vagrant
+  gather_facts: true
 
   tasks:
     - name: Gets local facts
