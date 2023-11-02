@@ -6,12 +6,17 @@
   become_user: root
   gather_facts: false
 
-  vars:
-    tls_dir: /etc/nginx/ssl/
-    key_file: nginx.key
-    cert_file: nginx.crt
-    conf_file: /etc/nginx/sites-available/default
-    server_name: localhost
+#  vars:
+#    tls_dir: /etc/nginx/ssl/
+#    key_file: nginx.key
+#    key_file: nginx.key
+#    cert_file: nginx.crt
+#    conf_file: /etc/nginx/sites-available/default
+#    server_name: localhost
+
+  # Un'alternativa più elegante alle "vars" sopra se ho molte variabili.
+  vars_files:
+    - nginx.yml
 
   handlers:
     - name: Restart NGINX

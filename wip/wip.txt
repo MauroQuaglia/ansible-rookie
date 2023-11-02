@@ -1,3 +1,4 @@
+Questo non funziona, provare a chiedere achatGPT come installare mezzanine.
 * sudo apt-get install -y python3-venv
 * sudo apt-get install -y python3-pip
 * python3 -m venv venv
