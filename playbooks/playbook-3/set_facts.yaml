@@ -1,0 +1,14 @@
+---
+- name: Esempio di utilizzo di set_fact
+  hosts: localhost
+  gather_facts: true
+
+  tasks:
+    - name: Dare un nome più leggibile a una variabile
+      set_fact:
+        os_family: "{{ ansible_facts.os_family }}"
+
+    - name: Visualizza la variabile
+      debug:
+        var: os_family
+...

@@ -4,8 +4,7 @@
 # Se metto un file .ini e .json, questo viene interpretato, e passato ad ansible.
 # Tuttavia questa cosa sembra non funzionare
 - name: Example Local Facts
-  hosts: vagrant
-  gather_facts: true
+  hosts: localhost
 
   tasks:
     - name: Gets local facts
