@@ -48,15 +48,4 @@
     - debug:
         var: result
 
-    # Posso tornare anche i fact di un singolo modulo con il service_facts!
-    # Il service_facts è un modulo che permette di tornare i facts dei servizi.
-    # Le informazioni raccolte vengono stampate in output utilizzando il modulo debug e accedendo alla variabile ansible_facts.services
-    # Le informazioni raccolte da service_facts vengono memorizzate in ansible_facts.services
-    # In questo caso andiamo a vedere le variabili del servizio "sshd.service"
-    - name: Fact returned by a module
-      service_facts:
-
-    - debug:
-        var: ansible_facts.services['sshd.service']
-
 ...

@@ -1,0 +1,23 @@
+---
+
+# Le SERVICE FACT rappresentano la raccolta di tutti le informazioni sui servizi che girano sugli host remoti.
+- name: Example Service Facts
+  hosts: vagrant
+  gather_facts: false
+
+  tasks:
+    - name: Before call Service Facts
+      debug:
+        var: ansible_facts.services # VARIABLE IS NOT DEFINED!
+
+    - name: Call Service Facts
+      service_facts: # Raccolta delle informazioni relative a tutti servizi
+
+    # Li visualizzo tutti
+    - debug:
+        var: ansible_facts.services
+
+    # Ne visualizzo solo uno
+    - debug:
+        var: ansible_facts.services['ua-reboot-cmds.service']
+...
