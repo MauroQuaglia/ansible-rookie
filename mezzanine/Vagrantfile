@@ -7,5 +7,18 @@ Vagrant.configure('2') do |config|
     vagrant.vm.hostname = MACHINE_NAME
     vagrant.vm.network('forwarded_port', id: 'ssh', guest: 22, host: 2200, auto_correct: false)
     vagrant.vm.network('forwarded_port', id: 'http', guest: 8000, host: 8000)
+    vagrant.vm.provision('shell', inline: 'sudo apt-get update')
+    vagrant.vm.provision('shell', inline: 'sudo apt-get upgrade -y')
+    vagrant.vm.provision('shell', inline: 'sudo apt-get install -y python3-venv')
+    vagrant.vm.provision('shell', inline: 'sudo python3 -m venv venv')
+    vagrant.vm.provision('shell', inline: 'source venv/bin/activate')
+    vagrant.vm.provision('shell', inline: 'sudo apt-get install -y python3-pip')
+    vagrant.vm.provision('shell', inline: 'sudo pip3 install wheel')
+    vagrant.vm.provision('shell', inline: 'sudo pip3 install mezzanine')
+    vagrant.vm.provision('shell', inline: 'sudo mezzanine-project myproject')
+    vagrant.vm.provision('shell', inline: 'sudo myproject/python3 manage.py migrate')
+    vagrant.vm.provision('shell', inline: 'sudo myproject/python3 manage.py runserver 0.0.0.0:8000')
   end
+  # LA soluzione è fare tutto con un unico script perché misa che se apre e chiude la schell il source non lo tiene.
+  # Penso che uno script solo si possa fare
 end
