@@ -41,6 +41,7 @@
   * L'hook per triggerarlo è il "changed" del task
      * Se qualcosa va male, e rilancio il Play, potrei avere un "ok" al posto di un "changed", teniamone conto.
   * Vedere il handler.yml per una spiegazione
+* `ansible-playbook --list-tasks webservers-tls.yml` per vedere tutti i task di un playbook.
 
 # Anatomia di un playbook
 * Lo dice il nome play book: il libro dei play
