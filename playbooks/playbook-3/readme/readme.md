@@ -10,4 +10,5 @@
 * Visto che il comando precedente torna una marea di roba, lo stesso comando support anche i filtri, per esempio: `ansible all -m setup -a 'filter=ansible_env'`
   * Che torna tutte le variabili di ambiente sulle macchine. 
 * Posso anche passare il valore di una variabile da linea di comando.
+* Le `ansible_env` contengono le variabili di ambiente dell'host remoto.
 

@@ -1,6 +1,68 @@
 ---
 
-- name: Simple example
+- name: Setup and Deploy of Mezzanine
   hosts: vagrant
   gather_facts: true
+
+  vars:
+    project_app: "mezzanine7"
+    project_name: "{{ project_app }}"
+    project_path: "{{ ansible_env.HOME }}/mezzanine/{{ project_name }}"
+    logs_path: "{{ ansible_env.HOME }}/logs"
+    repo_url: "https://github.com/ansiblebook/mezzanine_example.git"
+    venv_home: "{{ ansible_env.HOME }}/.virtualenvs"
+    venv_path: "{{ venv_home }}/.virtualenvs"
+
+  tasks:
+
+    - name: Install packages
+      become: true
+      when: false
+      apt:
+        update_cache: true
+        pkg:
+          - acl
+          - git
+          - libjpeg-dev
+          - libpq-dev
+          - memcached
+          - nginx
+          - postgresql
+          - python3-dev
+          - python3-pip
+          - python3-venv
+          - python3-psycopg2
+          - supervisor
+
+    - name: Create project directories
+      file:
+        path: "{{ item }}"
+        state: directory
+        mode: '755' # proprietario: rwx, gruppo: r-x, altri: r-w
+      loop:
+        - "{{ project_path }}"
+        - "{{ logs_path }}"
+
+    - name: Check out repository
+      git:
+        repo: "{{ repo_url }}"
+        dest: "{{ project_path }}"
+        version: master
+        #accept_hostkey: true
+
+    - name: Create Python 3 virtualenv
+      pip:
+        name:
+          - pip
+          - wheel
+          - setuptools
+        state: latest
+        virtualenv: "{{ venv_path }}"
+        virtualenv_command: /usr/bin/python3 -m venv
+
+
+    - name: Show variable
+      when: false
+      debug:
+        msg: "{{ ansible_env.HOME }}/mezzanine/{{ project_name }}"
 ...
