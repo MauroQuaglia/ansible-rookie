@@ -12,6 +12,13 @@
     repo_url: "https://github.com/ansiblebook/mezzanine_example.git"
     venv_home: "{{ ansible_env.HOME }}/.virtualenvs"
     venv_path: "{{ venv_home }}/.virtualenvs"
+    home_path: "~"
+    locale: "en_US.UTF-8"
+    database_name: "{{ project_name }}"
+    database_user: "{{ project_name }}"
+
+  vars_files:
+    - secrets.yml
 
   tasks:
 
@@ -60,9 +67,31 @@
         virtualenv: "{{ venv_path }}"
         virtualenv_command: /usr/bin/python3 -m venv
 
+    - name: Install Mezzanine (in the venv)
+      pip:
+        name:
+          - mezzanine
+        state: latest
+
+    - name: Create the locale of the project
+      become: true
+      locale_gen:
+        name: "{{ locale }}"
+
+    - name: Create a database user
+      become: true
+      become_user: postgres
+      postgresql_user:
+        name: "{{ database_user }}"
+        password: "{{ database_password }}"
+
+
+
+
+
 
     - name: Show variable
       when: false
       debug:
-        msg: "{{ ansible_env.HOME }}/mezzanine/{{ project_name }}"
+        msg: "{{ home_path }}"
 ...

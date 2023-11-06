@@ -1,0 +1,19 @@
+
+    # Provo ad ignorarlo così prende le versioni più recenti (when: false)
+    - name: Copy requirements.txt to home directory
+      when: false
+      become: true
+      copy:
+        remote_src: true
+        src: "{{ project_path }}/requirements.txt"
+        dest: "{{ home_path }}"
+        mode: '644' # proprietario: rw-, gruppo: r--, altri: r--
+
+    # Provo ad ignorarlo così prende le versioni più recenti (when: false)
+    - name: Install packages listed in requirements.txt
+      when: false
+      ignore_errors: true
+      become: true
+      pip:
+        virtualenv: "{{ venv_path }}"
+        requirements: "{{ home_path }}/requirements.txt"
