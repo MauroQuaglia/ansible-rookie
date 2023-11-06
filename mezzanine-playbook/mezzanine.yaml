@@ -3,10 +3,4 @@
 - name: Simple example
   hosts: vagrant
   gather_facts: true
-
-  tasks:
-    - name: Print information
-      debug:
-        var: ansible_facts.lsb.description
-
 ...
