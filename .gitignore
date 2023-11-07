@@ -3,4 +3,4 @@
 *.log
 *.key
 *.crt
-/mezzanine-playbook/secrets.*
+./mezzanine-playbook/secrets.yml

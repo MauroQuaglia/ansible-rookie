@@ -5,17 +5,30 @@
   gather_facts: true
 
   vars:
-    project_app: "mezzanine7"
-    project_name: "{{ project_app }}"
-    project_path: "{{ ansible_env.HOME }}/mezzanine/{{ project_name }}"
-    logs_path: "{{ ansible_env.HOME }}/logs"
-    repo_url: "https://github.com/ansiblebook/mezzanine_example.git"
+    user: "{{ ansible_user }}"
+    proj_app: "mezzanine_example"
+    proj_name: "{{ proj_app }}"
     venv_home: "{{ ansible_env.HOME }}/.virtualenvs"
-    venv_path: "{{ venv_home }}/.virtualenvs"
-    home_path: "~"
+    venv_path: "{{ venv_home }}/{{ proj_name }}"
+    proj_path: "{{ ansible_env.HOME }}/mezzanine/{{ proj_name }}"
+    logs_path: "{{ ansible_env.HOME }}/logs"
+    settings_path: "{{ proj_path }}/{{ proj_name }}"
+    reqs_path: "~/requirements.txt"
+    manage: "{{ python }} {{ proj_path }}/manage.py"
+    live_hostname: "192.168.33.10.nip.io"
+    domains:
+      - "192.168.33.10.nip.io"
+      - "www.192.168.33.10.nip.io"
+    repo_url: "https://github.com/ansiblebook/mezzanine_example.git"
     locale: "en_US.UTF-8"
-    database_name: "{{ project_name }}"
-    database_user: "{{ project_name }}"
+    conf_path: "/etc/nginx/conf"
+    tls_enabled: false
+    python: "{{ venv_path }}/bin/python"
+    database_name: "{{ proj_name }}"
+    database_user: "{{ proj_name }}"
+    database_host: "localhost"
+    database_port: "5432"
+    gunicorn_procname: "gunicorn_mezzanine"
 
   vars_files:
     - secrets.yml
@@ -24,7 +37,6 @@
 
     - name: Install packages
       become: true
-      when: false
       apt:
         update_cache: true
         pkg:
@@ -47,15 +59,14 @@
         state: directory
         mode: '755' # proprietario: rwx, gruppo: r-x, altri: r-w
       loop:
-        - "{{ project_path }}"
+        - "{{ proj_path }}"
         - "{{ logs_path }}"
 
     - name: Check out repository
       git:
         repo: "{{ repo_url }}"
-        dest: "{{ project_path }}"
+        dest: "{{ proj_path }}"
         version: master
-        #accept_hostkey: true
 
     - name: Create Python 3 virtualenv
       pip:
@@ -63,15 +74,10 @@
           - pip
           - wheel
           - setuptools
+          - mezzanine
         state: latest
         virtualenv: "{{ venv_path }}"
         virtualenv_command: /usr/bin/python3 -m venv
-
-    - name: Install Mezzanine (in the venv)
-      pip:
-        name:
-          - mezzanine
-        state: latest
 
     - name: Create the locale of the project
       become: true
@@ -83,15 +89,57 @@
       become_user: postgres
       postgresql_user:
         name: "{{ database_user }}"
-        password: "{{ database_password }}"
+        password: "{{ db_pass }}"
 
+    - name: Create the database
+      become: true
+      become_user: postgres
+      postgresql_db:
+        name: "{{ database_name }}"
+        owner: "{{ database_user }}"
+        encoding: "UTF8"
+        lc_ctype: "{{ locale }}"
+        lc_collate: "{{ locale }}"
+        template: "template0"
 
+    - name: Ensure Nginx config path exists
+      become: true
+      file:
+        path: "{{ conf_path }}"
+        state: directory
+        mode: '755' # proprietario: rwx, gruppo: r-x, altri: r-w
 
+    - name: Remove default Nginx config file
+      become: true
+      file:
+        path: /etc/nginx/sites-enabled/default
+        state: absent
 
+    - name: Set the Nginx config file
+      become: true
+      template:
+        src: nginx.conf.j2
+        dest: /etc/nginx/sites-available/mezzanine.conf
+        mode: '640' # proprietario: rw-, gruppo: r--, altri: ---
 
+    - name: Set the Supervisor config file
+      become: true
+      template:
+        src: supervisor.conf.j2
+        dest: /etc/supervisor/conf.d/mezzanine.conf
+        mode: '640' # proprietario: rw-, gruppo: r--, altri: ---
 
-    - name: Show variable
-      when: false
-      debug:
-        msg: "{{ home_path }}"
+    - name: Set the Gunicorn config file
+      become: true
+      template:
+        src: gunicorn.conf.py.j2
+        dest: "{{ proj_path }}/gunicorn.conf.py"
+        mode: '750' # proprietario: rwx, gruppo: r-x, altri: ---
+
+    - name: Generate the settings file
+      template:
+        src: local_settings.py.j2
+        dest: "{{ settings_path }}/local_settings.py"
+        mode: '750' # proprietario: rwx, gruppo: r-x, altri: ---
+
 ...
