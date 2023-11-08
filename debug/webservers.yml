@@ -1,0 +1,7 @@
+---
+
+- name: Configure webserver
+  hosts: vagrant
+  gather_facts: false
+
+...
