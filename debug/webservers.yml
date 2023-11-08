@@ -2,6 +2,23 @@
 
 - name: Configure webserver
   hosts: vagrant
-  gather_facts: false
+  debugger: on_failed
+  gather_facts: true
+
+  vars:
+    var1: value1
+
+  tasks:
+
+    - name: Check out repository Error
+      when: false # Abilito o disabilito a piacimento
+      git:
+        repo: "git@github.com:ansiblebook/mezzanine_example.git"
+        dest: "{{ ansible_env.HOME }}/mezzanine"
+        version: master
+
+    - name: Use a wrong variable
+      ping: data={{ wrong_var }}
+
 
 ...
