@@ -4,3 +4,7 @@
 * Usare il -vvv per esempio in `ansible vagrant -vvv -m ping` per vedere come e con quali parametri ansible si connette in SSH.
 * Posso usare il debugger che è molto potente:
   * https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_debugger.html
+* Si possono anche fare degli assert, ma bisogna ricordare che il codice dell'assert non si scrive in Python ma in Jinja2.
+* Per lo status dei file ci possono essere molte cose.
+ * "Leghiamo" una statistica al file e poi la mostriamo.
+ * Vedere l'esempio.

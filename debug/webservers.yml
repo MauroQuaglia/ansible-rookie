@@ -2,11 +2,15 @@
 
 - name: Configure webserver
   hosts: vagrant
-  debugger: on_failed
+  # debugger: on_failed
   gather_facts: true
 
   vars:
     var1: value1
+    port_list:
+      - 443
+      - 8080
+
 
   tasks:
 
@@ -17,8 +21,35 @@
         dest: "{{ ansible_env.HOME }}/mezzanine"
         version: master
 
-    - name: Use a wrong variable
+    - name: Use a wrong variable (per provare il debug)
+      when: false # Abilito o disabilito a piacimento
+      debugger: on_failed
       ping: data={{ wrong_var }}
 
+    - name: Test of assert module
+      assert:
+        # that: var1 is not defined
+        # Il codice nell'assert è in JINJA2 non in PYTHON!
+        that: var1 is defined
+
+    - name: Test of assert module is in JINJA2
+      assert:
+        # that: len(port_list) == 2 #  PYTHON KO
+        that: port_list|length == 2 # JINJA2 OK
+
+    - name: Statistics of a file
+      stat:
+        path: "/home/vagrant/.ssh/authorized_keys"
+      register: result
+
+    - name: Assert on authorized_keys file
+      debug:
+        msg: >
+          "Ecco le stats del file authorized_keys: {{ result.stat }}"
+          "Ed ecco il checksum: {{result.stat.checksum }}"
+
+    - name: Esempio di assert sul file delle authorized_keys
+      assert:
+        that: not result.stat.isdir
 
 ...
