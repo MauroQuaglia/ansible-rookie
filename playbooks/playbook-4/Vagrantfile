@@ -1,0 +1,11 @@
+VAGRANT_1 = 'vagrant-1'
+
+Vagrant.configure('2') do |config|
+  config.vm.define(VAGRANT_1) do |vagrant_1|
+    vagrant_1.vm.box = 'ubuntu/focal64'
+    vagrant_1.vm.hostname = VAGRANT_1
+    vagrant_1.vm.network('forwarded_port', id: 'ssh', guest: 22, host: 2201, auto_correct: false)
+    vagrant_1.vm.network('forwarded_port', id: 'http', guest: 80, host: 8000, auto_correct: true)
+    vagrant_1.vm.network('forwarded_port', id: 'https', guest: 443, host: 8443, auto_correct: true)
+  end
+end

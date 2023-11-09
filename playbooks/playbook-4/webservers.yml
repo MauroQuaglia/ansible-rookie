@@ -1,0 +1,12 @@
+---
+
+- name: Configure webserver
+  hosts: vagrant
+  gather_facts: true
+
+  tasks:
+    -
+    - name: Test
+      debug:
+        msg: This is a test message
+...

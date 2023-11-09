@@ -27,12 +27,14 @@
       ping: data={{ wrong_var }}
 
     - name: Test of assert module
+      tags: "test,test1"
       assert:
         # that: var1 is not defined
         # Il codice nell'assert è in JINJA2 non in PYTHON!
         that: var1 is defined
 
     - name: Test of assert module is in JINJA2
+      tags: "test,test2"
       assert:
         # that: len(port_list) == 2 #  PYTHON KO
         that: port_list|length == 2 # JINJA2 OK

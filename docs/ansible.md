@@ -42,6 +42,9 @@
      * Se qualcosa va male, e rilancio il Play, potrei avere un "ok" al posto di un "changed", teniamone conto.
   * Vedere il handler.yml per una spiegazione
 * `ansible-playbook --list-tasks webservers-tls.yml` per vedere tutti i task di un playbook.
+* `ansible-playbook --tags=test1,test2 webservers.yml ` per lanciare solo alcuni tasks o ruoli o play, basta taggarli e poi lanciare i lplaybook in questo modo.
+* `ansible-playbook --skip-tags=test1,test2 webservers.yml ` cosa del tutto analoga se volgio invece evitare di fare girare dei task, ruoli, ... specifici.
+* `ansible-playbook --limit vagrant webservers.yml` per limitare l'esecuzione sono ad alcuni gruppi o host per esempio
 
 # Anatomia di un playbook
 * Lo dice il nome play book: il libro dei play
@@ -56,3 +59,4 @@
 * `ansible-inventory --host testserver -i inventory/vagrant.ini`
 * `ansible-inventory --graph --vars`
 * `vagrant validate`
+
