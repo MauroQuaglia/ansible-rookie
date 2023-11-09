@@ -1,0 +1,17 @@
+---
+- name: Install the database
+  hosts: vagrant
+  gather_facts: true
+
+  vars:
+    database_port: 5432
+    database_user: "mq7"
+    database_name: "mqdb"
+    locale: "en_US.UTF-8"
+
+  vars_files:
+    - secrets.yml
+
+  roles:
+    - role: database
+...

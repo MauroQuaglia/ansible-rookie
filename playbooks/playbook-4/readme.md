@@ -7,3 +7,5 @@
   * in `/etc/ansible/roles`
   * Possiamo customizzare la ricerca di un ruolo nell'`ansible.cfg` con la `role_path`
   * Possiamo usare la variabile di ambiente `ANSIBLE_ROLES_PATH`
+
+* Si possono usare pre_task e post_task da eseguire prima o dopo un ruola.

@@ -3,6 +3,7 @@
 - name: Play-1 for gather variables
   hosts: vagrant # possono essere diversi da ruolo a ruolo
   gather_facts: true
+  tags: play1
 
   roles:
     - role: my_gather # Quando invochiamo il ruolo, possiamo anche passargli delle variabili... queste vincono sulle variabili definite nel ruolo stesso, fanno l'override.
@@ -10,7 +11,18 @@
 - name: Play-2 for messages
   hosts: all # possono essere diversi da ruolo a ruolo
   gather_facts: false
+  tags: play2
+
+  pre_tasks:
+    - name: "Questo è un PRE TASK"
+      debug:
+        msg: "Eseguito il PRE TASK"
 
   roles:
     - role: my_message
+
+  post_tasks:
+    - name: "Questo è un POST TASK"
+      debug:
+        msg: "Eseguito il POST TASK"
 ...
