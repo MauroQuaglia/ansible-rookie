@@ -1,0 +1,2 @@
+# File e script da mettere sull'host remoto.
+# Qua posso metterci tutti i file che voglio.

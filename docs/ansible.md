@@ -51,6 +51,8 @@
 * 1 Playbook ---> + Play
 * 1 Play ---> + Task
 * 1 Task ---> 1 Module (buona pratica, anche se si può avere + Module)
+* Il Play può eventualmente contenere dei ruoli che servono per azioni specifiche.
+* 1 Play ---> + Role (1 Role --> + Task)
 
 # Validazione di un playbook prima di lanciarlo 
 * `ansible-playbook --syntax-check webservers.yml`
