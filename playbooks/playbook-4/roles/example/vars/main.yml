@@ -1,1 +1,4 @@
-# Variabili che non dovrebbere mai essere sovrascritte.
+# VARIABILI AD ALTA PRECEDENZA
+# Variabili che NON dovrebbere mai essere sovrascritte.
+# Se le passo splicitamente dal playbook al ruolo, queste le posso sovrascrivere, ma tendenzialmente non è una buona pratica.
+# Inizialmente esistevasolo questo file, solo successivamente è stato introdotto il default.

@@ -13,7 +13,7 @@
     - secrets.yml
 
   roles:
-    - role: database
+    - role: postgres
       tags: db
 
 # ansible-playbook --tags=web_server test-2.yml

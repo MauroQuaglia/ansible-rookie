@@ -9,3 +9,5 @@
   * Possiamo usare la variabile di ambiente `ANSIBLE_ROLES_PATH`
 
 * Si possono usare pre_task e post_task da eseguire prima o dopo un ruola.
+* Dato che Ansible non sfruta l'idea dei namespace, all'interno di un ruolo è sempre meglio prependere il nome del ruolo ai 
+  nomi delle variabili, in modo da evitare possibili conflitti.
