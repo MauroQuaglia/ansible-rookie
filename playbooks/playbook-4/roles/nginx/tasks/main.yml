@@ -1,0 +1,28 @@
+---
+- name: Install apt packages
+  become: true
+  apt:
+    update_cache: true
+    pkg: "{{ nginx_packages }}"
+
+- name: Ensure Nginx config path exists
+  become: true
+  file:
+    path: "{{ conf_path }}"
+    state: directory
+    mode: '755'
+
+- name: Remove default Nginx config file
+  become: true
+  file:
+    path: "{{ default_path }}/default"
+    state: absent
+
+- name: Set the Nginx config file
+  become: true
+  template:
+    src: "nginx.conf.j2"
+    dest: "{{ available_path }}/nginx.conf"
+    mode: "640"
+  notify: Restart Nginx
+...

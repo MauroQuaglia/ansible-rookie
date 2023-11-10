@@ -1,0 +1,6 @@
+---
+nginx_packages: "nginx"
+conf_path: "/etc/nginx/conf"
+default_path: "/etc/nginx/sites-enabled/"
+available_path: "/etc/nginx/sites-available/"
+...

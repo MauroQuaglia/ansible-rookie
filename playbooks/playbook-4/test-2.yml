@@ -1,0 +1,31 @@
+---
+- name: Install the database
+  hosts: db
+  gather_facts: true
+
+  vars:
+    database_port: 5432
+    database_user: "mq7"
+    database_name: "mqdb"
+    locale: "en_US.UTF-8"
+
+  vars_files:
+    - secrets.yml
+
+  roles:
+    - role: database
+      tags: db
+
+# ansible-playbook --tags=web_server test-2.yml
+- name: Install Nginx
+  hosts: web
+
+  vars:
+    proj_name: "WebProject"
+    proj_path: "{{ ansible_env.HOME }}/{{ proj_name }}"
+    domain: "192.168.33.10"
+
+  roles:
+    - role: nginx
+      tags: web_server
+...
