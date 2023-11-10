@@ -1,9 +1,6 @@
 ---
-- name: Install apt packages
-  become: true
-  apt:
-    update_cache: true
-    pkg: "{{ nginx_packages }}"
+# L'ho commentatoperché ho provato a farlo con il ruolo updater e funziona. Bisogna specificare nei meta la dipendenza del ruolo.
+# - include_tasks: setup.yml
 
 - name: Ensure Nginx config path exists
   become: true

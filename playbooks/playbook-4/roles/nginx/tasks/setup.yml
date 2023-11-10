@@ -1,0 +1,7 @@
+---
+- name: Install apt packages
+  become: true
+  apt:
+    update_cache: true
+    pkg: "{{ nginx_packages }}"
+...

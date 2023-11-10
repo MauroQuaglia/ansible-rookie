@@ -11,3 +11,16 @@
 * Si possono usare pre_task e post_task da eseguire prima o dopo un ruola.
 * Dato che Ansible non sfruta l'idea dei namespace, all'interno di un ruolo è sempre meglio prependere il nome del ruolo ai 
   nomi delle variabili, in modo da evitare possibili conflitti.
+* Se lo stesso file del ruolo è molto lungo si possono usare gli `include_tasks`, come ho fatto per esempio per nginx.
+
+* __NB__
+* Quando usiamo i moduli `copy`, `script` o `template`.
+* C'è differenza per i task definiti in un ruolo o quelli definiti in un playbook.
+* Quando per esempio lancio una `copy` da un ruolo, il file viene prima cercato nei file del ruolo e poi nel playbook... in realtà cerca anche in altri path poi.
+
+# __Galaxy__
+* https://galaxy.ansible.com
+* `ansible-galaxy role init --init-path ./roles web`
+
+* Le dependencies permettono di eliminare la duplicazione e eseguire un ruolo all'interno di un ruolo. Vanno specificati nei meta
+  e questi ruoli vengono eseguiti per primi.
