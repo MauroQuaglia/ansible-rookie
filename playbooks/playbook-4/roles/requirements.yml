@@ -1,0 +1,5 @@
+# Se c'è questo file mentre uso AWX/Ansible Tower ansible va a scaricare in automatico i ruoli elencati qui.
+# requirements file
+---
+- src: oefenweb.ntp
+...

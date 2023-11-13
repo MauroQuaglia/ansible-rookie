@@ -21,6 +21,7 @@
 # __Galaxy__
 * https://galaxy.ansible.com
 * `ansible-galaxy role init --init-path ./roles web`
+* `ansible-galaxy install oefenweb.ntp -p path-dove-voglio-installare` per installare un ruolo.
 
 * Le dependencies permettono di eliminare la duplicazione e eseguire un ruolo all'interno di un ruolo. Vanno specificati nei meta
   e questi ruoli vengono eseguiti per primi.
