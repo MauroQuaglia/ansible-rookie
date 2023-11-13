@@ -1,0 +1,10 @@
+---
+- name: Complex Playbook
+  hosts: web
+  gather_facts: true
+
+  tasks:
+  - name: Prova
+    debug:
+      msg: "CIAO"
+...
