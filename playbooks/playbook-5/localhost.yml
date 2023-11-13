@@ -1,0 +1,56 @@
+---
+- name: Complex Playbook
+  hosts: localhost
+  gather_facts: false
+
+  vars:
+    my_path: /mauro-quaglia/ansible-rookie/playbooks/playbook-5/localhost.yml
+    domains:
+      - "192.168.5.100"
+      - "192.168.5.200"
+
+  tasks:
+    - name: 'Test filter: default'
+      when: false
+      debug:
+        msg: >
+          "{{ ansible_facts.lsb.description | default('Ubuntu') }}"
+          "{{ ansible_facts.lsb.unknown | default('Non so!') }}"
+
+    - name: 'Filters for paths'
+      debug:
+        msg: "Il mio file: {{ my_path | basename }}"
+
+    - name: 'My custom filters without surround'
+      debug:
+        msg: "I miei domini sono: {{ domains|join(', ') }}" # In questo caso non mette le " intorno agli IP
+
+    - name: 'My custom filters with surround'
+      debug:
+        msg: "I miei domini sono: {{ domains|surround_by_quotes|join(', ') }}" # In questo caso mette le " intorno agli IP
+
+    - name: 'Lookup: file (NB: run on Control Machine)'
+      debug:
+        msg: "Il contenuto del file è: {{ lookup('file', './tmp/prova.txt') }}"
+
+    - name: 'Lookup: pipe (NB: run on Control Machine)'
+      debug:
+        msg: "L'output del comando  è: {{ lookup('pipe', 'ls -lah | wc -l') }}"
+
+    - name: 'Lookup: env (NB: run on Control Machine)'
+      debug:
+        msg: "La variabile di ambiente contiene questo valore: {{ lookup('env', 'DESKTOP_STARTUP_ID') }}"
+
+    - name: 'Lookup: password (NB: run on Control Machine)'
+      debug:
+        msg: "Una password generata è: {{ lookup('password', './tmp/pw.txt') }}"
+
+    - name: 'Lookup: template (NB: run on Control Machine)'
+      debug:
+        msg: "Il mio template torna: {{ lookup('template', 'my_template.j2') }}"
+
+    - name: 'Lookup: csv (NB: run on Control Machine)'
+      debug:
+        msg: "Il mio template torna: {{ lookup('csvfile', 'lui file=./tmp/prova.csv delimiter=, col=1') }}"
+
+...

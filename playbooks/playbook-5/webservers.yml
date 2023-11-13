@@ -1,10 +1,20 @@
 ---
 - name: Complex Playbook
   hosts: web
-  gather_facts: true
+  gather_facts: false
 
   tasks:
-  - name: Prova
-    debug:
-      msg: "CIAO"
+    - name: (failed_when) Fail when my_file exists in /tmp directory
+      command: ls /tmp/my_file.txt
+      register: failed_when_result
+      failed_when:
+        - failed_when_result.rc == 0
+
+    - name: (changed_when) Change when command success # Dichiara il task in stato changed quando in realtà ha avuto successo.
+      command: echo CIAO
+      register: changed_when_success
+      changed_when:
+        - '"CIAO" in changed_when_success.stdout'
+
+    - debug: var=changed_when_success.stdout
 ...
