@@ -1,0 +1,60 @@
+---
+- name: Complex Playbook for loops
+  hosts: localhost
+  gather_facts: false
+
+
+  tasks:
+    - name: 'Until test'
+      debug:
+        msg: "Scrivo questo messaggio"
+      until: false
+      retries: 1
+      delay: 1
+      ignore_errors: true
+
+    - name: 'Loop e with_items sono equivalenti'
+      debug:
+        msg: "name: {{item.name}} and surname: {{item.surname}}, number: {{ i + 1 }}"
+      loop:
+        - name: Mauro
+          surname: Quaglia
+        - name: Tony
+          surname: Manero
+      loop_control:
+        index_var: i
+        # pause: 1
+
+    - name: 'with_lines'
+      debug:
+        msg: "{{ item }}"
+      # Cicla sulle righe di output di un comando per esempio.
+      with_lines:
+        - cat "./tmp/prova_2.txt"
+
+    - name: 'with_fileglob'
+      debug:
+        msg: "{{ lookup('file', item) }}"
+      with_fileglob:
+        - ./tmp/*.txt
+        - ./tmp/*.csv
+
+    - name: 'with_dict'
+      debug:
+        msg: "{{ item.key }} = {{ item.value }}"
+      with_dict:
+        name: mauro
+        surname: quaglia
+        age: 24
+
+    - name: 'Custom variable name for loop'
+      debug:
+        msg: "{{ user.name }}"
+      with_items:
+        - { name: gil }
+        - { name: mauro }
+        - { name: jessika }
+      loop_control:
+        loop_var: user
+
+...

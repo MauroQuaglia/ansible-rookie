@@ -32,6 +32,10 @@
   * In `/etc/ansible/ansible.cfg`
 
 # playbook
+* Occhio a quando si cambia  un utente, perché dato che il playbook tende a diventare a"spaghetti" se molto lungo e spezzettato
+  poi si fa fatica a capire quale utente sta facendo cosa.
+* I blocchi servono per raggruppare più task insieme (che non hanno ancora una dignità di ruolo) ma che insieme eseguono un'operazione specifica.
+  Servono spesso per delle gestioni del tipo try-catch-finally
 * Per capire se ho installato (sulla control-machine) un modulo e come usarlo: 
  * `ansible-doc -l`. Per esempio se vogliamo avere lumi sul modulo "service":  `ansible-doc service`
 * handler
