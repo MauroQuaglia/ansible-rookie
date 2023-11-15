@@ -1,0 +1,13 @@
+---
+- name: Esempio di strategie
+  hosts: vagrant
+  gather_facts: false
+
+  tasks:
+  - name: First Task
+    command: sleep "{{ sleep_seconds }}"
+
+  - name: Second Task
+    debug:
+      msg: "Second Task"
+...

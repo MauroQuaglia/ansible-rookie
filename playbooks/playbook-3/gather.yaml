@@ -3,6 +3,7 @@
 # Occhio che la variabile ansible_facts viene creata in automatico da Ansible, quindi cerchiamo di non sovrascrivergliela per sbaglio noi!
 - name: Example of Gather Facts
   hosts: vagrant
+  #serial: 1 # Serve per fare girare il playbook su una macchina per volta
   gather_facts: true
 
   tasks:

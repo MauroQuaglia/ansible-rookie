@@ -1,0 +1,18 @@
+---
+- name: Complex Playbook for loops
+  hosts: localhost
+  gather_facts: false
+
+  # Sotto le group_vars ho le variabili criptate
+  vars_files:
+    - "./inventory/group_vars/vault"
+
+  # ansible-playbook --ask-vault-pass localhost-vault.yml
+  tasks:
+    - name: 'Prova vault'
+      no_log: false
+      # no_log: true # E' la cosa corretta per non mostrare la password a video.
+      debug:
+        msg: "Sta nel secrets: {{ db_pass }}"
+
+...

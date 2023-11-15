@@ -66,3 +66,7 @@
 * `ansible-inventory --graph --vars`
 * `vagrant validate`
 
+# Vault
+* I dato sono decriptati quando sono su disco, se non li voglio visualizzare neanche mentre gira l'anisible devo usare il `no_log`.
+* Di solito le variabili criptate vengono messe in `group_vars/all/vault` ma da valutare.
+

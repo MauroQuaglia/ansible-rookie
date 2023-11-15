@@ -8,3 +8,9 @@
 * Per lo status dei file ci possono essere molte cose.
  * "Leghiamo" una statistica al file e poi la mostriamo.
  * Vedere l'esempio.
+
+# Per eseguire il playbook passo a passo
+* Per eseguire un task alla volta `ansible-playbook my-playbook.yaml --step`
+* Per partire da un certo punto in poi `ansible-playbook --start-at-task "Run and ignore failure but print the error" gather.yaml` 
+* Per eseguire solo alcuni task taggati (+) `ansible-playbook --tags      tag1,tag2 gather.yaml` 
+* Per eseguire solo alcuni task taggati (-) `ansible-playbook --skip-tags tag1,tag2 gather.yaml` 
