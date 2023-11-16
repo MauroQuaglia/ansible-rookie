@@ -66,6 +66,7 @@
         dest: /usr/share/nginx/html/index.html
         mode: "0644"
 
+    # Serve per forzare l'handler in questo punto, altrimenti girerebbe solo alla fine.
     - name: Restart NGINX
       meta: flush_handlers
 

@@ -3,6 +3,9 @@
 # questa gestione con gli handler, basta mettere come ultimo task del play un task che fa il restart del servizio!
 # E' lo stesso Ansible a consigliarlo.
 
+# Come nota, ogni handler che viene notificato nel pre-tasks, tasks, o post-tasks poi alla fine gira.
+# Quindi occhio che se lo notifico nel  pre-tasks, alla fine dei pre-tasks lui gira, e se poi lo notifico anche nei pos-tasks
+# quando anche questi finiscono di girare e l'hanno notificato, lui gira un'altra volta.
 ---
 
 - name: Configure webserver with NGINX and TLS

@@ -1,13 +1,17 @@
 ---
 - name: Esempio di strategie
   hosts: vagrant
+  connection: local # Serve per provare a farli girare sulla macchina locale. Non serve avere su le VM.
   gather_facts: false
+  strategy: free
 
   tasks:
   - name: First Task
     command: sleep "{{ sleep_seconds }}"
+    changed_when: false
 
   - name: Second Task
     debug:
       msg: "Second Task"
+    changed_when: false
 ...
