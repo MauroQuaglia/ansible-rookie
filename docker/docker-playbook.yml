@@ -1,0 +1,35 @@
+---
+- name: Prova con docker
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+
+# Ho dovuto disinstallare questa libreria altrimenti non partiva più il docker di tp
+#  /usr/bin/python3 -m pip uninstall docker-py
+
+
+
+  tasks:
+    - name: Debug
+      debug:
+        msg: CIAO
+
+      # Succedeva che partiva e non lo vedevo ma il fatto è che moriva subito il container quindi lo si vede solo con il -a
+      # docker container ls -a
+      # docker image ls -a
+    - name: Ghost image
+      docker_container:
+        name: test-ghost
+        image: ghost
+        state: started
+
+      # Serveper rimuovere il container. Se infatti poi faccio la lista dei container non c'è più.
+      # Ho messo when: false per non cancellaro per ora
+    - name: Ghost delete container
+      when: true
+      docker_container:
+        name: test-ghost
+        state: absent
+
+...
