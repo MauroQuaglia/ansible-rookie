@@ -1,0 +1,2 @@
+* Secondo passo provo a mettere un NginX davanti a Ghost ma uso il Docker Compose e compagnia bella.
+* Dopo che faccio il `docker-compose up` se visito il sito `http://localhost:8000` ancora vedo Ghost!

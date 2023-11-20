@@ -1,0 +1,22 @@
+version: '3.3'
+services:
+  nginx:
+    build:
+      context: .
+    container_name: 'nginx'
+    ports:
+      - "8000:80"
+    networks:
+      - ghost_network
+  ghost:
+    image: "ghost:latest"
+    container_name: 'ghost'
+    ports:
+      - "2368:2368"
+    environment:
+      - NODE_ENV=development
+    networks:
+      - ghost_network
+networks:
+  ghost_network:
+    driver: bridge
