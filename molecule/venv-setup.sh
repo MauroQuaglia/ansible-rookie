@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+# source this file in bash
+rm -rf .venv
+python3 -m venv .venv --prompt '\[\e[31;40m\]M\[\e[m\]'
+source .venv/bin/activate
+python3 -m pip install --upgrade pip
+pip3 install wheel
+pip3 install -r requirements.txt
+
+# Per uscire dal virtual environmente: deactivate

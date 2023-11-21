@@ -3,3 +3,4 @@
 *.log
 *.key
 *.crt
+molecule/.venv

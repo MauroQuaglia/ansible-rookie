@@ -1,0 +1,29 @@
+---
+- name: Prova
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  tasks:
+
+    - name: Creazione del container Ghost
+      tags: create
+      docker_container:
+        image: "ghost:latest"
+        name: 'ghost'
+        ports:
+          - "2368:2368"
+        state: started
+        detach: true
+        env:
+          NODE_ENV: "development"
+
+    # Provo a cancellare tutto
+    - name: Remove Containers
+      tags: destroy
+      docker_container:
+        name: "{{ item }}"
+        state: absent
+      loop:
+        - ghost
+...
