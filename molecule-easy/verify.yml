@@ -1,0 +1,17 @@
+---
+- name: Test server
+  hosts: localhost
+  connection: local
+  gather_facts: true
+
+  tasks:
+    # Provo a buttare fuori qualche informazione
+    - name: Get image info Ghost
+      docker_image_info:
+        name: ghost:latest
+      register: ghost_image_info
+
+    - name: Extract port
+      debug:
+        msg: "La porta di Ghost è: {{ ghost_image_info.images[0].Config.ExposedPorts.keys()[0] }}"
+...

@@ -1,0 +1,80 @@
+---
+# ansible-playbook docker-playbook.yml --tags=create
+# ansible-playbook docker-playbook.yml --tags=destroy
+
+- name: Avviamo Ghost im local con Docker
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  tasks:
+    - name: "Creaimo l'immagine di NginX"
+      tags: create
+      docker_image:
+        build:
+          path: .
+        source: build
+        name: "nginx_ghost"
+        state: present
+        force_source: true
+        tag: "{{ tag|default('latest') }}"
+
+    - name: Creazione della rete Docker
+      tags: create
+      docker_network:
+        name: ghost_network
+        driver: bridge
+        state: present
+
+    - name: Creazione del container Ghost
+      tags: create
+      docker_container:
+        image: "ghost:latest"
+        name: 'ghost'
+        ports:
+          - "2368:2368"
+        state: started
+        detach: true
+        networks:
+          - name: ghost_network
+        env:
+          NODE_ENV: "development"
+
+    - name: Creazione del container NginX
+      tags: create
+      docker_container:
+        image: "nginx_ghost:latest"
+        name: 'nginx'
+        ports:
+          - "8000:80"
+        state: started
+        detach: true
+        networks:
+          - name: ghost_network
+
+    # Provo a cancellare tutto
+    - name: Remove Containers
+      tags: destroy
+      docker_container:
+        name: "{{ item }}"
+        state: absent
+      loop:
+        - ghost
+        - nginx
+
+    - name: Remove Network
+      tags: destroy
+      docker_network:
+        name: ghost_network
+        state: absent
+
+    - name: Remove Images
+      tags: destroy
+      docker_image:
+        name: "{{ item }}"
+        state: absent
+      loop:
+        - nginx_ghost:latest
+        - ghost:latest
+        - nginx
+...
