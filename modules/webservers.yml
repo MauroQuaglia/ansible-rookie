@@ -1,0 +1,12 @@
+---
+- name: Complex Playbook
+  hosts: web
+  gather_facts: false
+
+  tasks:
+    - name: "Say hello by script from remote"
+      script: scripts/say_hello.sh "Mauro"
+      register: response
+
+    - debug: var=response.stdout_lines[0]
+...
