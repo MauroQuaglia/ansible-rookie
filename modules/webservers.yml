@@ -6,7 +6,14 @@
   tasks:
     - name: "Say hello by script from remote"
       script: scripts/say_hello.sh "Mauro"
-      register: response
+      register: response_script
 
-    - debug: var=response.stdout_lines[0]
+    - debug: var=response_script.stdout_lines[0]
+
+    - name: "Ping"
+      my_ping:
+        site: "www.google.com"
+      register: response_module
+
+    - debug: var=response_module
 ...

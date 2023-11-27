@@ -1,4 +1,2 @@
-# Lookup
-* TUTTI i LOOKUP girano sulla CONTROL MACHINE, non sulle REMOTE MACHINE!
-* Per vedere la lista di tutti i lookup: `ansible-doc -t lookup -l`
-* Per vederne uno specifico: `ansible-doc -t lookup file`
+# Modulo
+* L'idea è questa però continua a lamentarsi di sintassi non valida anche quando pare si atutto a posto.
