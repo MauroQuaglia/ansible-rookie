@@ -1,0 +1,15 @@
+---
+# Utente con cui avverrà la connessione.
+# Questo utente sulle VM è nei sudoers della VM: vagrant ALL=(ALL) NOPASSWD:ALL
+# Per questo motivo posso "fare become: true" senza problemi.
+ansible_user: "vagrant"
+
+# Password per l'autenticazione. Nessuna perché usiamo il meccanismo delle chiavi private.
+ansible_password: ""
+
+# Control Persist: per l'SSH multiplexing.
+ansible_connection: "smart"
+
+ansible_shell_type: "sh"
+ansible_python_interpreter: "/usr/bin/python3"
+...

@@ -1,0 +1,41 @@
+---
+- name: Verify
+  hosts: ferrari
+  gather_facts: false
+
+  tasks:
+    - name: "Test http://localhost:1680/index.html response"
+      delegate_to: localhost
+      become: false
+      uri:
+        url: http://localhost:1680/index.html
+        return_content: true
+      register: charles_response
+
+    - name: "Debug della variabile. Lo attivo con 'when: true' solo quando mi serve"
+      when: false
+      debug:
+        var=charles_response
+
+    - name: "Verify Charles answer"
+      assert:
+        that: "'In funzione su leclerc' in charles_response.content"
+
+    - name: "Test http://localhost:4480/index.html response"
+      delegate_to: localhost
+      become: false
+      uri:
+        url: http://localhost:4480/index.html
+        return_content: true
+      register: lewis_response
+
+    - name: "Debug della variabile. Lo attivo con 'when: true' solo quando mi serve"
+      when: false
+      debug:
+        var=lewis_response
+
+    - name: "Verify Lewis answer"
+      assert:
+        that: "'In funzione su hamilton' in lewis_response.content"
+
+...

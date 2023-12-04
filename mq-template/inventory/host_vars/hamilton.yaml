@@ -1,0 +1,10 @@
+# ssh vagrant@127.0.0.1 -p 4422 -i /home/xpuser/mauro-quaglia/ansible-rookie/mq-template/tests/.vagrant/machines/lewis_car/virtualbox/private_key
+---
+# Hostname o IP verso cui fare l'SSH.
+ansible_host: "localhost"
+
+# Porta dell'SSH. Mappata sulla porta 22 della macchina Vagrant.
+ansible_port: "4422"
+
+ansible_ssh_private_key_file: "/home/xpuser/mauro-quaglia/ansible-rookie/mq-template/tests/.vagrant/machines/lewis_car/virtualbox/private_key"
+...
