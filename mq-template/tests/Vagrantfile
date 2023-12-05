@@ -1,7 +1,7 @@
 Vagrant.configure('2') do |config|
-  config.ssh.verify_host_key = false
 
   config.vm.define("charles_car") do |charles_car|
+    config.ssh.verify_host_key = false
     charles_car.vm.box = 'debian/contrib-buster64'
     charles_car.vm.hostname = "charles"
     charles_car.vm.network('forwarded_port', id: 'ssh', guest: 22, host: 1622, auto_correct: false)
@@ -9,6 +9,7 @@ Vagrant.configure('2') do |config|
   end
 
   config.vm.define("lewis_car") do |lewis_car|
+    config.ssh.verify_host_key = false
     lewis_car.vm.box = 'debian/contrib-buster64'
     lewis_car.vm.hostname = "lewis"
     lewis_car.vm.network('forwarded_port', id: 'ssh', guest: 22, host: 4422, auto_correct: false)

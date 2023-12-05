@@ -6,5 +6,6 @@ ansible_host: "localhost"
 # Porta dell'SSH. Mappata sulla porta 22 della macchina Vagrant.
 ansible_port: "1622"
 
-ansible_ssh_private_key_file: "/home/xpuser/mauro-quaglia/ansible-rookie/mq-template/tests/.vagrant/machines/charles_car/virtualbox/private_key"
+#ansible_ssh_private_key_file: "/home/xpuser/mauro-quaglia/ansible-rookie/mq-template/tests/.vagrant/machines/charles_car/virtualbox/private_key"
+ansible_ssh_private_key_file: "/home/xpuser/.ssh/id_rsa"
 ...
