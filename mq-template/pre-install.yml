@@ -1,0 +1,50 @@
+---
+- name: Pre install check variables
+  # Lo faccio solo sul gruppo ferrari per praticità, ma posso farlo su all
+  hosts: ferrari
+  gather_facts: true
+
+  tasks:
+    - name: Print all ansible_facts (collect from remote hosts)
+      debug:
+        var: ansible_facts
+
+    - name: Print only lsb description information
+      debug:
+        var: ansible_facts.lsb.description
+
+
+
+    - name: Collect facts of all services (collect from remote hosts)
+      service_facts:
+
+    - name: Print all service_facts
+      debug:
+        var: ansible_facts.services
+
+    - name: Print only systemd-udevd service information
+      debug:
+        var: ansible_facts.services['systemd-udevd.service']
+
+
+
+    - name: "Print all locals_facts (must be a .fact file on /etc/ansible/facts.d/ directory on the server) (collect from remote hosts)"
+      debug:
+        var: locals_facts
+
+
+    # Da qui in avanti ha più senso specificare un gather_facts: false perché altrimenti fa sempre un collect generale all'inizio.
+    - name: Built-in variables (collect from local inventory)
+      debug:
+        var: hostvars
+
+   # NB: Notiamo che anche se lo lancio da ferrari,  lui vedendo com'è l'inventory riesce a carpire informazioni relative anche all'altro host.
+    - name: Print only one information
+      debug:
+        var: hostvars['hamilton'].ansible_port
+
+    - name: Print all the information of the current host
+      debug:
+        var: hostvars[inventory_hostname]
+...
+
