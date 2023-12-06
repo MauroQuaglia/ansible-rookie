@@ -14,5 +14,5 @@ ansible_password: ""
 ansible_connection: "smart"
 
 ansible_shell_type: "sh"
-ansible_python_interpreter: "/usr/bin/python3"
+ansible_python_interpreter: "/usr/bin/python3.7"
 ...

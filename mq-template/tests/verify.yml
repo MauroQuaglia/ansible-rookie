@@ -1,6 +1,6 @@
 ---
 - name: Verify
-  hosts: ferrari
+  hosts: all
   gather_facts: false
 
   tasks:
