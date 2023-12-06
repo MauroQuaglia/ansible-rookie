@@ -3,7 +3,9 @@
 # Questo utente sulle VM è nei sudoers della VM: vagrant ALL=(ALL) NOPASSWD:ALL
 # Per questo motivo posso "fare become: true" senza problemi.
 # Utente remoto che esegue le azioni.
-ansible_user: "xpuser"
+
+#ansible_user: "xpuser"
+ansible_user: "vagrant"
 
 # Password per l'autenticazione. Nessuna perché usiamo il meccanismo delle chiavi private.
 ansible_password: ""
