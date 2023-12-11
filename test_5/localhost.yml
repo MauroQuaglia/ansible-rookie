@@ -1,0 +1,13 @@
+---
+- name: "Run on localhost"
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+    - name: "Who am I?"
+      command: "whoami"
+      register: response
+
+    - debug:
+        msg: "Current user is: {{ response.stdout_lines[0] }}"
+...
