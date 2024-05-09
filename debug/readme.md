@@ -14,3 +14,11 @@
 * Per partire da un certo punto in poi `ansible-playbook --start-at-task "Run and ignore failure but print the error" gather.yaml` 
 * Per eseguire solo alcuni task taggati (+) `ansible-playbook --tags      tag1,tag2 gather.yaml` 
 * Per eseguire solo alcuni task taggati (-) `ansible-playbook --skip-tags tag1,tag2 gather.yaml` 
+
+
+* Bello per fare debug diun template una cosa del genere:
+``` 
+- name: Debug Copy /etc/hosts when seo
+  debug:
+    msg: "{{ lookup('template', 'hosts.seo.j2')}}"
+``` 
