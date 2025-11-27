@@ -1,0 +1,37 @@
+---
+# https://docs.ansible.com/projects/ansible/latest/installation_guide/installation_distros.html#installing-ansible-on-debian
+
+- name: "Install required packages"
+  apt:
+    update_cache: true
+    pkg:
+      - "gnupg"
+
+- name: "Download Ansible GPG key"
+  get_url:
+    url: "https://keyserver.ubuntu.com/pks/lookup?fingerprint=on&op=get&search=0x6125E2A8C77F2818FB7BD15B93C4A3FD7BB9C367"
+    dest: "/tmp/ansible.gpg"
+    mode: "0644"
+
+- name: "Convert Ansible GPG key"
+  command: "gpg --dearmor -o /usr/share/keyrings/ansible-archive-keyring.gpg /tmp/ansible.gpg"
+  args:
+    creates: "/usr/share/keyrings/ansible-archive-keyring.gpg"
+
+- name: "Set permission to Ansible GPG key"
+  file:
+    path: "/usr/share/keyrings/ansible-archive-keyring.gpg"
+    mode: "0644"
+
+- name: "Add Ansible repository"
+  apt_repository:
+    repo: "deb [signed-by=/usr/share/keyrings/ansible-archive-keyring.gpg] http://ppa.launchpad.net/ansible/ansible/ubuntu {{ ansible_ubuntu_codename[ansible_distribution_release] }} main"
+    filename: "ansible"
+    state: "present"
+
+- name: "Install Ansible"
+  apt:
+    update_cache: true
+    pkg:
+      - "ansible"
+...

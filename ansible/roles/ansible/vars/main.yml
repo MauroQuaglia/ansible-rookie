@@ -1,0 +1,6 @@
+---
+ansible_ubuntu_codename:
+  bookworm: "jammy"
+  bullseye: "focal"
+  buster: "bionic"
+...
