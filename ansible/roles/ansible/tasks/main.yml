@@ -5,7 +5,8 @@
   apt:
     update_cache: true
     pkg:
-      - "gnupg"
+      - "gnupg2"
+    state: "present"
 
 - name: "Download Ansible GPG key"
   get_url:
@@ -14,18 +15,18 @@
     mode: "0644"
 
 - name: "Convert Ansible GPG key"
-  command: "gpg --dearmor -o /usr/share/keyrings/ansible-archive-keyring.gpg /tmp/ansible.gpg"
+  command: "gpg --dearmor -o /etc/apt/keyrings/ansible-archive-keyring.gpg /tmp/ansible.gpg"
   args:
-    creates: "/usr/share/keyrings/ansible-archive-keyring.gpg"
+    creates: "/etc/apt/keyrings/ansible-archive-keyring.gpg"
 
 - name: "Set permission to Ansible GPG key"
   file:
-    path: "/usr/share/keyrings/ansible-archive-keyring.gpg"
+    path: "/etc/apt/keyrings/ansible-archive-keyring.gpg"
     mode: "0644"
 
 - name: "Add Ansible repository"
   apt_repository:
-    repo: "deb [signed-by=/usr/share/keyrings/ansible-archive-keyring.gpg] http://ppa.launchpad.net/ansible/ansible/ubuntu {{ ansible_ubuntu_codename[ansible_distribution_release] }} main"
+    repo: "deb [signed-by=/etc/apt/keyrings/ansible-archive-keyring.gpg] http://ppa.launchpad.net/ansible/ansible/ubuntu {{ ansible_ubuntu_codename[ansible_distribution_release] }} main"
     filename: "ansible"
     state: "present"
 

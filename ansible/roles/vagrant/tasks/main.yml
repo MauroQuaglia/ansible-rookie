@@ -1,0 +1,38 @@
+---
+# https://developer.hashicorp.com/vagrant/install
+
+- name: "Install required packages"
+  apt:
+    update_cache: true
+    pkg:
+      - "gnupg2"
+    state: "present"
+
+- name: "Download Vagrant GPG key"
+  get_url:
+    url: "https://apt.releases.hashicorp.com/gpg"
+    dest: "/tmp/hashicorp.gpg"
+    mode: "0644"
+
+- name: "Convert Vagrant GPG key"
+  command: "gpg --dearmor -o /etc/apt/keyrings/hashicorp-archive-keyring.gpg /tmp/hashicorp.gpg"
+  args:
+    creates: "/etc/apt/keyrings/hashicorp-archive-keyring.gpg"
+
+- name: "Set permission to Vagrant GPG key"
+  file:
+    path: "/etc/apt/keyrings/hashicorp-archive-keyring.gpg"
+    mode: "0644"
+
+- name: "Add Vagrant repository"
+  apt_repository:
+    repo: "deb [signed-by=/etc/apt/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com {{ ansible_distribution_release }} main"
+    filename: "hashicorp"
+    state: "present"
+
+- name: "Install Vagrant"
+  apt:
+    update_cache: true
+    pkg:
+      - "vagrant"
+...

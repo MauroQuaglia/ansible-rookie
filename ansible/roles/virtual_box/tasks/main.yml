@@ -1,0 +1,38 @@
+---
+# https://www.virtualbox.org/wiki/Linux_Downloads
+
+- name: "Install required packages"
+  apt:
+    update_cache: true
+    pkg:
+      - "gnupg2"
+    state: "present"
+
+- name: "Download VirtualBox GPG key"
+  get_url:
+    url: "https://www.virtualbox.org/download/oracle_vbox_2016.asc"
+    dest: "/tmp/virtualbox.gpg"
+    mode: "0644"
+
+- name: "Convert VirtualBox GPG key"
+  command: "gpg --dearmor -o /etc/apt/keyrings/oracle-virtualbox-2016.gpg /tmp/virtualbox.gpg"
+  args:
+    creates: "/etc/apt/keyrings/oracle-virtualbox-2016.gpg"
+
+- name: "Set permission to VirtualBox GPG key"
+  file:
+    path: "/etc/apt/keyrings/oracle-virtualbox-2016.gpg"
+    mode: "0644"
+
+- name: "Add VirtualBox repository"
+  apt_repository:
+    repo: "deb [signed-by=/etc/apt/keyrings/oracle-virtualbox-2016.gpg] https://download.virtualbox.org/virtualbox/debian {{ ansible_distribution_release }} contrib"
+    filename: "virtualbox"
+    state: "present"
+
+- name: "Install VirtualBox"
+  apt:
+    update_cache: true
+    pkg:
+      - "virtualbox-{{ virtual_box_version }}"
+...
